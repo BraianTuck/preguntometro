@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz BROU 2024</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.js"></script>
+    <style>
+        .option:hover {
+            background-color: #e2e8f0;
+        }
+        .correct {
+            background-color: #c6f6d5;
+        }
+        .incorrect {
+            background-color: #fed7d7;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+    <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-2xl">
+        <h1 class="text-2xl font-bold mb-4">Quiz BROU 2024</h1>
+        <div id="question-container" class="mb-4">
+            <p id="question" class="text-lg font-semibold mb-2"></p>
+            <div id="options" class="space-y-2"></div>
+        </div>
+        <div id="feedback" class="mb-4 font-semibold hidden"></div>
+        <button id="next-btn" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 hidden">Siguiente pregunta</button>
+        <p id="score" class="mt-4 font-semibold"></p>
+    </div>
+
+    <script>
+        const quizData = [
+  {
+    "pregunta": "¿Cuál es uno de los objetivos estratégicos para el año 2024?",
+    "opciones": ["Incrementar los ingresos de clientes corporativos", "Optimizar la gestión de gastos e inversiones", "Reducir el número de empleados", "Eliminación de activos improductivos"],
+    "respuesta_correcta": "Optimizar la gestión de gastos e inversiones"
+  },
+  {
+    "pregunta": "¿Cuál es una de las herramientas clave para la alineación de esfuerzos de los funcionarios en 2024?",
+    "opciones": ["Indicador de Riesgo Residual", "Cuadro de Mando Integral", "Sistema de Remuneración por Cumplimiento de Metas (SRCM)", "Análisis FODA"],
+    "respuesta_correcta": "Sistema de Remuneración por Cumplimiento de Metas (SRCM)"
+  },
+  {
+    "pregunta": "En el contexto de transformación digital, ¿qué producto se continuará fortaleciendo en 2024?",
+    "opciones": ["MiBROU", "Transferencias diferidas", "Pago con débito tradicional", "Banca por teléfono"],
+    "respuesta_correcta": "MiBROU"
+  },
+  {
+    "pregunta": "¿Cuál es la principal preocupación relacionada con la gestión de riesgos en 2024?",
+    "opciones": ["Riesgo operativo y lavado de activos", "Gestión de liquidez", "Eficiencia en la distribución de recursos", "Baja de la rentabilidad operativa"],
+    "respuesta_correcta": "Riesgo operativo y lavado de activos"
+  },
+  {
+    "pregunta": "En 2024, ¿qué tipo de clientes se busca retener y hacer crecer?",
+    "opciones": ["Grandes empresas", "Clientes institucionales", "Medianos, pequeños y microempresarios", "Clientes internacionales"],
+    "respuesta_correcta": "Medianos, pequeños y microempresarios"
+  },
+  {
+    "pregunta": "¿Qué indicador es clave para la activación del SRCM?",
+    "opciones": ["Rentabilidad Operativa sobre Patrimonio", "Número de clientes activos", "Tasa de morosidad", "Volumen de depósitos"],
+    "respuesta_correcta": "Rentabilidad Operativa sobre Patrimonio"
+  },
+  {
+    "pregunta": "¿Qué herramienta se utilizará para gestionar mejor los activos fijos en 2024?",
+    "opciones": ["Módulo del sistema de compras", "Gestión CRM", "Análisis financiero", "Mapas de calor de riesgos"],
+    "respuesta_correcta": "Módulo del sistema de compras"
+  },
+  {
+    "pregunta": "¿Qué tecnología se utilizará para la automatización de tareas en 2024?",
+    "opciones": ["BPM y RPA", "Análisis de riesgos", "Transferencias electrónicas", "Big Data"],
+    "respuesta_correcta": "BPM y RPA"
+  },
+  {
+    "pregunta": "¿Cuál es la meta de migración de tarjetas para el año 2024?",
+    "opciones": ["Migrar al menos la mitad del volumen transaccional a Master Debit", "Reducir el uso de tarjetas de crédito", "Eliminar el uso de tarjetas físicas", "Introducir tarjetas prepagadas"],
+    "respuesta_correcta": "Migrar al menos la mitad del volumen transaccional a Master Debit"
+  },
+  {
+    "pregunta": "¿Qué se busca con la sistematización de la información del cliente?",
+    "opciones": ["Mejorar la calidad de la información", "Reducir el número de clientes", "Eliminar registros antiguos", "Centralizar la gestión de cuentas"],
+    "respuesta_correcta": "Mejorar la calidad de la información"
+  },
+  {
+    "pregunta": "¿Qué desafío relacionado con el personal enfrentará la organización en 2024?",
+    "opciones": ["Proceso de recambio generacional", "Aumento del teletrabajo", "Expansión internacional", "Reducción de la plantilla"],
+    "respuesta_correcta": "Proceso de recambio generacional"
+  },
+  {
+    "pregunta": "¿Qué tipo de pagos digitales se implementarán en 2024?",
+    "opciones": ["Pagos con códigos QR en comercios", "Pagos con tarjetas de crédito", "Pagos con cheques electrónicos", "Transferencias diferidas"],
+    "respuesta_correcta": "Pagos con códigos QR en comercios"
+  },
+  {
+    "pregunta": "¿Qué empresa del conglomerado BROU tiene como misión brindar servicios financieros a microempresarios?",
+    "opciones": ["República Microfinanzas S.A.", "República Afap S.A.", "Banco Central del Uruguay", "Banco de la República"],
+    "respuesta_correcta": "República Microfinanzas S.A."
+  },
+  {
+    "pregunta": "¿Cuál es el enfoque estratégico del Banco en términos de expansión de negocio?",
+    "opciones": ["Aumentar las operaciones comerciales", "Reducir costos operativos", "Limitar el crecimiento a nivel nacional", "Focalizarse en clientes internacionales"],
+    "respuesta_correcta": "Aumentar las operaciones comerciales"
+  },
+  {
+    "pregunta": "¿Qué objetivo estratégico busca reducir la mora del SNF Privado en 2024?",
+    "opciones": ["Reducir la mora al menos un 10% por debajo del nivel de 2023", "Incrementar los ingresos operativos", "Optimizar la gestión de la cartera", "Automatizar la gestión de riesgos"],
+    "respuesta_correcta": "Reducir la mora al menos un 10% por debajo del nivel de 2023"
+  },
+  {
+    "pregunta": "¿Qué indicador proyecta un crecimiento del 4.5% en 2024?",
+    "opciones": ["Créditos al SNF", "Depósitos totales", "Fideicomisos", "Rentabilidad sobre patrimonio"],
+    "respuesta_correcta": "Créditos al SNF"
+  },
+  {
+    "pregunta": "¿Cuál es uno de los objetivos principales en relación con el cliente?",
+    "opciones": ["Mejorar la experiencia del cliente", "Reducir la cantidad de productos financieros", "Aumentar los costos operativos", "Centralizar las operaciones bancarias"],
+    "respuesta_correcta": "Mejorar la experiencia del cliente"
+  },
+  {
+    "pregunta": "¿Cuál es el principal valor promovido por el banco en su Plan Estratégico?",
+    "opciones": ["Equidad", "Competitividad", "Individualismo", "Austeridad"],
+    "respuesta_correcta": "Equidad"
+  },
+  {
+    "pregunta": "¿Qué porcentaje de distribución de utilidades se espera para marzo de 2024?",
+    "opciones": ["75%", "50%", "100%", "25%"],
+    "respuesta_correcta": "75%"
+  },
+  {
+    "pregunta": "¿Qué herramienta será clave para medir el cumplimiento de los objetivos estratégicos?",
+    "opciones": ["Cuadro de Mando Integral", "Balance financiero", "Evaluación anual de personal", "Proyección de utilidades"],
+    "respuesta_correcta": "Cuadro de Mando Integral"
+  }
+];
+
+        let currentQuestion = 0;
+        let score = 0;
+
+        const questionEl = document.getElementById('question');
+        const optionsEl = document.getElementById('options');
+        const feedbackEl = document.getElementById('feedback');
+        const nextBtn = document.getElementById('next-btn');
+        const scoreEl = document.getElementById('score');
+
+        function loadQuestion() {
+            const question = quizData[currentQuestion];
+            questionEl.textContent = question.pregunta;
+            optionsEl.innerHTML = '';
+            question.opciones.forEach((option, index) => {
+                const button = document.createElement('button');
+                button.textContent = option;
+                button.classList.add('option', 'w-full', 'text-left', 'p-2', 'rounded', 'border', 'border-gray-300');
+                button.addEventListener('click', () => selectOption(index));
+                optionsEl.appendChild(button);
+            });
+            feedbackEl.classList.add('hidden');
+            nextBtn.classList.add('hidden');
+        }
+
+        function selectOption(index) {
+            const question = quizData[currentQuestion];
+            const selectedOption = question.opciones[index];
+            const correct = selectedOption === question.respuesta_correcta;
+
+            const options = optionsEl.children;
+            for (let i = 0; i < options.length; i++) {
+                options[i].disabled = true;
+                if (i === index) {
+                    options[i].classList.add(correct ? 'correct' : 'incorrect');
+                }
+                if (question.opciones[i] === question.respuesta_correcta) {
+                    options[i].classList.add('correct');
+                }
+            }
+
+            feedbackEl.textContent = correct ? '¡Correcto!' : 'Incorrecto. La respuesta correcta es: ' + question.respuesta_correcta;
+            feedbackEl.classList.remove('hidden');
+            nextBtn.classList.remove('hidden');
+
+            if (correct) score++;
+            updateScore();
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            if (currentQuestion < quizData.length) {
+                loadQuestion();
+            } else {
+                questionEl.textContent = '¡Quiz completado!';
+                optionsEl.innerHTML = '';
+                feedbackEl.textContent = `Tu puntuación final es: ${score} de ${quizData.length}`;
+                feedbackEl.classList.remove('hidden');
+                nextBtn.classList.add('hidden');
+            }
+        }
+
+        function updateScore() {
+            scoreEl.textContent = `Puntuación: ${score} de ${currentQuestion + 1}`;
+        }
+
+        nextBtn.addEventListener('click', nextQuestion);
+
+        loadQuestion();
+        updateScore();
+    </script>
+</body>
+</html>
