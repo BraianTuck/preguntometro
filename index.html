@@ -1,146 +1,196 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz BROU 2024</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.js"></script>
-    <style>
-        .option:hover {
-            background-color: #e2e8f0;
-        }
-        .correct {
-            background-color: #c6f6d5;
-        }
-        .incorrect {
-            background-color: #fed7d7;
-        }
-        #next-btn:disabled {
-            background-color: #a0aec0;
-            cursor: not-allowed;
-        }
-    </style>
-</head>
-<body class="bg-gray-100 min-h-screen flex items-center justify-center">
-    <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-2xl">
-        <h1 class="text-2xl font-bold mb-4 text-center text-blue-600">Quiz BROU 2024</h1>
-        <div id="question-container" class="mb-4">
-            <p id="question" class="text-lg font-semibold mb-2"></p>
-            <div id="options" class="space-y-2"></div>
-        </div>
-        <div id="feedback" class="mb-4 font-semibold text-center hidden"></div>
-        <div class="flex justify-center">
-            <button id="next-btn" disabled class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 hidden">Siguiente pregunta</button>
-        </div>
-        <p id="score" class="mt-4 font-semibold text-center"></p>
-    </div>
-
-    <script>
-        const quizData = [
-          {
-            "pregunta": "¿Cuál es uno de los objetivos estratégicos para el año 2024?",
-            "opciones": ["Incrementar los ingresos de clientes corporativos", "Optimizar la gestión de gastos e inversiones", "Reducir el número de empleados", "Eliminación de activos improductivos"],
-            "respuesta_correcta": "Optimizar la gestión de gastos e inversiones"
-          },
-          {
-            "pregunta": "¿Cuál es una de las herramientas clave para la alineación de esfuerzos de los funcionarios en 2024?",
-            "opciones": ["Indicador de Riesgo Residual", "Cuadro de Mando Integral", "Sistema de Remuneración por Cumplimiento de Metas (SRCM)", "Análisis FODA"],
-            "respuesta_correcta": "Sistema de Remuneración por Cumplimiento de Metas (SRCM)"
-          },
-          {
-            "pregunta": "En el contexto de transformación digital, ¿qué producto se continuará fortaleciendo en 2024?",
-            "opciones": ["MiBROU", "Transferencias diferidas", "Pago con débito tradicional", "Banca por teléfono"],
-            "respuesta_correcta": "MiBROU"
-          },
-          {
-            "pregunta": "¿Cuál es la principal preocupación relacionada con la gestión de riesgos en 2024?",
-            "opciones": ["Riesgo operativo y lavado de activos", "Gestión de liquidez", "Eficiencia en la distribución de recursos", "Baja de la rentabilidad operativa"],
-            "respuesta_correcta": "Riesgo operativo y lavado de activos"
-          },
-          {
-            "pregunta": "En 2024, ¿qué tipo de clientes se busca retener y hacer crecer?",
-            "opciones": ["Grandes empresas", "Clientes institucionales", "Medianos, pequeños y microempresarios", "Clientes internacionales"],
-            "respuesta_correcta": "Medianos, pequeños y microempresarios"
-          }
-          // Añade más preguntas aquí si es necesario.
-        ];
-
-        let currentQuestion = 0;
-        let score = 0;
-        let optionSelected = false;
-
-        const questionEl = document.getElementById('question');
-        const optionsEl = document.getElementById('options');
-        const feedbackEl = document.getElementById('feedback');
-        const nextBtn = document.getElementById('next-btn');
-        const scoreEl = document.getElementById('score');
-
-        function loadQuestion() {
-            const question = quizData[currentQuestion];
-            questionEl.textContent = question.pregunta;
-            optionsEl.innerHTML = '';
-            optionSelected = false;
-            question.opciones.forEach((option, index) => {
-                const button = document.createElement('button');
-                button.textContent = option;
-                button.classList.add('option', 'w-full', 'text-left', 'p-2', 'rounded', 'border', 'border-gray-300', 'hover:bg-gray-100');
-                button.addEventListener('click', () => selectOption(index));
-                optionsEl.appendChild(button);
-            });
-            feedbackEl.classList.add('hidden');
-            nextBtn.classList.add('hidden');
-            nextBtn.disabled = true;  // Deshabilitar el botón hasta que se seleccione una opción
-        }
-
-        function selectOption(index) {
-            const question = quizData[currentQuestion];
-            const selectedOption = question.opciones[index];
-            const correct = selectedOption === question.respuesta_correcta;
-
-            const options = optionsEl.children;
-            for (let i = 0; i < options.length; i++) {
-                options[i].disabled = true; // Deshabilitar opciones después de seleccionar una
-                if (i === index) {
-                    options[i].classList.add(correct ? 'correct' : 'incorrect');
+{
+    "template_id": "licitacion_antel_2023",
+    "template_name": "Pliego de Condiciones T�cnicas - Licitaci�n Antel",
+    "description": "Template para la licitaci�n de servicios profesionales para el dise�o e implementaci�n de modelos de Aprendizaje Autom�tico e Inteligencia Artificial para Antel.",
+    "sections": [
+        {
+            "section_id": "1",
+            "section_name": "Objeto",
+            "summary": "Descripci�n del objeto de la licitaci�n.",
+            "content": "Antel llama a licitaci�n para la contrataci�n de servicios profesionales para el dise�o e implementaci�n de modelos de Aprendizaje Autom�tico e Inteligencia Artificial orientados a servicios internos de la Administraci�n y para el soporte experto en Gobierno de Datos. Antel se reserva el derecho de hacer uso de opci�n de hasta un 100% del monto adjudicado.",
+            "required": true,
+            "static": true,
+            "variables": []
+        },
+        {
+            "section_id": "2",
+            "section_name": "Alcance",
+            "summary": "Descripci�n del alcance del trabajo y los perfiles t�cnicos necesarios.",
+            "content": "La empresa adjudicataria deber� trabajar junto con el personal de Antel sobre la plataforma de Big Data e IA disponibles en la organizaci�n, de acuerdo a lo especificado en el {anexo_4}, en lo que refiere al dise�o, implementaci�n y ejecuci�n de los trabajos que vayan surgiendo en los diferentes proyectos. Los resultados de los diferentes an�lisis podr�n entregarse mediante dashboards din�micos, CSV, APIs, bases de datos, entre otros. En todos los casos los algoritmos, desarrollos, an�lisis o productos obtenidos durante la ejecuci�n de la contrataci�n ser�n propiedad de Antel, sin poder ser replicado estos estudios en otros operadores o empresas. El personal deber� tener las capacidades para trabajar sobre la plataforma tecnol�gica de Big Data e IA de Antel. En caso de que el personal propuesto por la empresa requiera capacitaci�n en la plataforma a ser utilizada, dicha transferencia de conocimientos ser� proporcionada por el equipo de Antel. Las horas de dicha transferencia no ser�n facturadas por la empresa de acuerdo a lo dispuesto en el numeral {numeral_6_1}.",
+            "required": true,
+            "static": false,
+            "variables": [
+                {
+                    "name": "anexo_4",
+                    "type": "string",
+                    "description": "Referencia al anexo 4.",
+                    "required": true,
+                    "default": "Anexo 4"
+                },
+                {
+                    "name": "numeral_6_1",
+                    "type": "string",
+                    "description": "Referencia al numeral 6.1.",
+                    "required": true,
+                    "default": "6.1"
                 }
-                if (question.opciones[i] === question.respuesta_correcta) {
-                    options[i].classList.add('correct');
+            ]
+        },
+        {
+            "section_id": "3",
+            "section_name": "Servicios Profesionales",
+            "summary": "Descripci�n de los perfiles profesionales requeridos.",
+            "content": "Se describe a continuaci�n cada perfil: Arquitecto de Datos y Data Modeler: se encarga de ver las necesidades del negocio y tendencias tecnol�gicas a largo plazo, define las arquitecturas y herramientas tecnol�gicas necesarias seg�n las necesidades del negocio actuales y futuras. Ingeniero de Datos: realiza modelos de complejidad media o b�sica. Cient�fico de datos: extrae informaci�n y conocimiento m�s complejo a partir de los datos. Ingeniero IA: desarrolla, implementa, alimenta de datos y despliega en producci�n los modelos de inteligencia artificial. Especialista en Gobernanza de datos: define las pol�ticas de seguridad, permisos, zonas de acceso, cat�logos de datos, persistencia, linaje, entre otras estrategias que definen el buen cuidado y gobierno de los datos.",
+            "required": true,
+            "static": false,
+            "variables": []
+        },
+        {
+            "section_id": "4",
+            "section_name": "Caracter�sticas del Servicio",
+            "summary": "Descripci�n de las caracter�sticas del servicio a ser prestado.",
+            "content": "4.1 Plazos de cumplimiento de tareas: Las tareas objeto de esta contrataci�n se coordinar�n entre las partes durante la ejecuci�n de la contrataci�n. 4.2 Medios de comunicaci�n: Antel y la empresa acordar�n, previo al inicio de los servicios, respectivas casillas de correo electr�nico donde se enviar�n y recibir�n las comunicaciones necesarias. 4.3 Transferencia de conocimientos: La transferencia de conocimiento ser� parte del trabajo que deber� realizar cada t�cnico de la empresa adjudicataria en el caso que Antel lo solicite. 4.4 Soporte L�gico: En todos los casos los algoritmos y desarrollos obtenidos durante la ejecuci�n de la contrataci�n ser�n propiedad de Antel.",
+            "required": true,
+            "static": false,
+            "variables": []
+        },
+        {
+            "section_id": "5",
+            "section_name": "Metodolog�a de Trabajo",
+            "summary": "Descripci�n de la metodolog�a de trabajo a seguir.",
+            "content": "Inicialmente se definir� un flujo de trabajo con un volumen anual para la reserva de recursos en sus diferentes perfiles. Este flujo estar� comprendido por diferentes tareas que se deber�n cumplir y entregar seg�n la planificaci�n acordada entre la empresa adjudicataria y Antel. El plan de trabajo anual estar� dividido como m�ximo en 4 bloques y estos 4 bloques estar�n comprendidos por entregables que ser�n especificados en tiempo y forma en un documento de com�n acuerdo.",
+            "required": true,
+            "static": false,
+            "variables": []
+        },
+        {
+            "section_id": "6",
+            "section_name": "Condiciones del Servicio",
+            "summary": "Descripci�n de las condiciones del servicio.",
+            "content": "6.1 T�cnicos afectados al servicio: El personal propuesto por la empresa adjudicataria, antes de ser incorporado al servicio, deber� ser aprobado por Antel. 6.2 Incorporaci�n de nuevos t�cnicos al servicio: Antel podr� solicitar la incorporaci�n definitiva o temporal de un nuevo t�cnico al servicio. 6.3 Desvinculaci�n de t�cnicos: Si durante la ejecuci�n de la contrataci�n, fuera necesaria la desvinculaci�n de un t�cnico a iniciativa del adjudicatario, este deber� comunicarlo por escrito a Antel. 6.4 Condiciones de sustituci�n de t�cnicos: El personal propuesto por el adjudicatario, antes de ser incorporado al servicio, deber� ser aprobado por Antel.",
+            "required": true,
+            "static": false,
+            "variables": []
+        },
+        {
+            "section_id": "7",
+            "section_name": "Cotizaci�n",
+            "summary": "Descripci�n de c�mo debe realizarse la cotizaci�n.",
+            "content": "La cotizaci�n se deber� realizar en modalidad plaza, en moneda nacional y discriminando los impuestos seg�n la planilla incluida en el {anexo_3}. En caso de no discriminarlos, se interpretar� que los mismos est�n incluidos en el precio cotizado.",
+            "required": true,
+            "static": false,
+            "variables": [
+                {
+                    "name": "anexo_3",
+                    "type": "string",
+                    "description": "Referencia al anexo 3.",
+                    "required": true,
+                    "default": "Anexo 3"
                 }
-            }
-
-            feedbackEl.textContent = correct ? '¡Correcto!' : 'Incorrecto. La respuesta correcta es: ' + question.respuesta_correcta;
-            feedbackEl.classList.remove('hidden');
-            nextBtn.classList.remove('hidden');
-            nextBtn.disabled = false; // Habilitar el botón "Siguiente" una vez seleccionada una opción
-            optionSelected = true;  // Marcar que se ha seleccionado una opción
-
-            if (correct) score++;
-            updateScore();
-        }
-
-        function nextQuestion() {
-            if (optionSelected) {
-                currentQuestion++;
-                if (currentQuestion < quizData.length) {
-                    loadQuestion();
-                } else {
-                    questionEl.textContent = '¡Quiz completado!';
-                    optionsEl.innerHTML = '';
-                    feedbackEl.textContent = `Tu puntuación final es: ${score} de ${quizData.length}`;
-                    feedbackEl.classList.remove('hidden');
-                    nextBtn.classList.add('hidden');
+            ]
+        },
+        {
+            "section_id": "8",
+            "section_name": "Evaluaci�n de Ofertas",
+            "summary": "Criterios de evaluaci�n de las ofertas.",
+            "content": "Ser�n consideradas v�lidas las ofertas que se ajusten a los requerimientos solicitados en el presente pliego de condiciones. El comparativo de ofertas se realizar�, sobre el monto total sin impuestos que surja de Planilla de Cotizaci�n ({anexo_3}).",
+            "required": true,
+            "static": false,
+            "variables": [
+                {
+                    "name": "anexo_3",
+                    "type": "string",
+                    "description": "Referencia al anexo 3.",
+                    "required": true,
+                    "default": "Anexo 3"
                 }
-            }
+            ]
+        },
+        {
+            "section_id": "9",
+            "section_name": "Adjudicaci�n",
+            "summary": "Criterios de adjudicaci�n de la licitaci�n.",
+            "content": "La adjudicaci�n se realizar�, por el monto total que surja de la Planilla de Cotizaci�n ({anexo_3}), a aquella oferta que ajust�ndose a los requisitos solicitados en este pliego, presente el menor precio comparativo. Antel podr� variar la cantidad de horas a ejecutar de los diferentes perfiles, siempre dentro de estas especificaciones y del monto total adjudicado.",
+            "required": true,
+            "static": false,
+            "variables": [
+                {
+                    "name": "anexo_3",
+                    "type": "string",
+                    "description": "Referencia al anexo 3.",
+                    "required": true,
+                    "default": "Anexo 3"
+                }
+            ]
+        },
+        {
+            "section_id": "10",
+            "section_name": "Inicio del Servicio",
+            "summary": "Plazos para el inicio del servicio.",
+            "content": "La fecha de inicio del servicio se coordinar� entre Antel y el adjudicatario y no exceder� los 30 d�as corridos contados a partir de la fecha de notificaci�n de adjudicaci�n. En caso de incumplimiento en la fecha de inicio coordinada, por razones imputables al adjudicatario, se aplicar�n las multas previstas en el presente documento.",
+            "required": true,
+            "static": false,
+            "variables": []
+        },
+        {
+            "section_id": "11",
+            "section_name": "Forma de Pago",
+            "summary": "Condiciones de pago de los servicios prestados.",
+            "content": "La facturaci�n de los servicios profesionales ser� en forma mensual, a mes vencido, seg�n las horas efectivamente ejecutadas por cada perfil. El pago se efectuar� dentro del cronograma de pagos de esta Administraci�n, previa aceptaci�n por parte de Antel de la factura respectiva.",
+            "required": true,
+            "static": false,
+            "variables": []
+        },
+        {
+            "section_id": "12",
+            "section_name": "Ajuste de Precios",
+            "summary": "F�rmula para el ajuste de precios.",
+            "content": "Los precios cotizados se ajustar�n mensualmente utilizando la siguiente f�rmula param�trica: P = P0 ((IMS/IMS0). Siendo: P = Precio del servicio / de la hora ajustado; P0 = Precio del servicio / de la hora cotizado en la propuesta; IMS = �ndice Medio de Salarios del Sector Privado del pa�s de dos meses anteriores al mes de la prestaci�n del servicio; IMS0 = �ndice Medio de Salarios del Sector Privado del pa�s de dos meses anteriores al de la presentaci�n de la propuesta. Fuente: INE (Instituto Nacional de Estad�stica).",
+            "required": true,
+            "static": false,
+            "variables": []
+        },
+        {
+            "section_id": "13",
+            "section_name": "Incumplimientos",
+            "summary": "Descripci�n de los incumplimientos y sus consecuencias.",
+            "content": "A continuaci�n se describen los incumplimientos de la contrataci�n, por los cuales el adjudicatario ser� pasible de las multas estipuladas en el presente documento: 13.1 Ausencia parcial, total, o desvinculaci�n definitiva de cualquier t�cnico por un per�odo mayor a 15 d�as corridos, por iniciativa de la empresa, sin que se haya realizado la debida solicitud por escrito a Antel en plazo, o no autorizada por Antel. 13.2 No presentaci�n de los t�cnicos en las fechas previstas o acordadas excepcionalmente. 13.3 Incumplimiento de los plazos para la ejecuci�n de las tareas atribuidas directamente al adjudicatario. 13.4 Imposibilidad de la empresa de iniciar el servicio con los t�cnicos propuestos en su propuesta. 13.5 No cumplimiento de los est�ndares o procedimientos referidos. 13.6 Atraso en el inicio del servicio. 13.7 Mala ejecuci�n de los trabajos causados por acciones que a juicio de Antel se consideren negligentes, debidamente probadas.",
+            "required": true,
+            "static": false,
+            "variables": []
+        },
+        {
+            "section_id": "14",
+            "section_name": "Multas",
+            "summary": "Descripci�n de las multas aplicables en caso de incumplimiento.",
+            "content": "14.1 Si la causa del incumplimiento se ajusta a las caracter�sticas en el numeral 13.5, la primera vez que se constate un incumplimiento, se realizar� una observaci�n por escrito a la empresa adjudicataria. Para los incumplimientos subsiguientes se aplicar�n las multas detalladas en el punto 14.6 �Primer Incumplimiento�, �Segundo Incumplimiento� y �Tercer Incumplimiento�, respectivamente. 14.2 Si la causa del incumplimiento se ajusta a las caracter�sticas descritas en el numeral 13.2, se aplicar�n las multas de acuerdo al siguiente criterio: 14.2.1 Si la presentaci�n del t�cnico se realiza dentro de los diez d�as siguientes al plazo establecido, se aplicar� �Primer incumplimiento�. 14.2.2 Si la presentaci�n del t�cnico se realiza entre los d�as onceavo y vig�simo quinto d�a, posteriores al plazo establecido, se aplicar� �Segundo incumplimiento�. 14.2.3 Si la presentaci�n del t�cnico se realiza a partir del vig�simo sexto d�a posterior al plazo establecido, se aplicar� �Tercer incumplimiento�. 14.2.4 Alcanzados los 40 d�as posteriores al plazo establecido, Antel podr� rescindir la contrataci�n sin perjuicio de la aplicaci�n de las multas correspondientes. 14.3 Si la causa del incumplimiento se ajusta a las caracter�sticas descritas en el numeral 13.4, la multa ser� del 10% del monto total adjudicado, sin impuestos. 14.4 Si la causa del incumplimiento se ajusta a las caracter�sticas descritas en el numeral 13.6, la multa ser� del 1% del monto total adjudicado, sin impuestos, por cada d�a corrido de atraso. 14.5 Para el resto de los incumplimientos incluidos en el art�culo 13 la primera vez se aplicar� �Primer Incumplimiento�, la segunda vez se aplicar� �Segundo Incumplimiento� y la(s) siguiente(s) �Tercer Incumplimiento�.",
+            "required": true,
+            "static": false,
+            "variables": []
+        },
+        {
+            "section_id": "15",
+            "section_name": "Generalidades",
+            "summary": "Otras consideraciones y requisitos generales.",
+            "content": "Junto con la propuesta, el oferente deber� presentar: - Declaraci�n Jurada seg�n modelo que luce como {anexo_6}, (seg�n corresponda persona f�sica o persona jur�dica), acreditando el cumplimiento del Art. 46 del �TOCAF�. En caso de no presentaci�n de dicha Declaraci�n Jurada, durante el estudio de las ofertas Antel la requerir� otorgando un plazo para ello. - Declaraci�n Jurada, seg�n modelo que luce como {anexo_7}, acreditando que la prestaci�n de servicios de inform�tica constituye uno de los giros principales de la empresa, como m�nimo desde 2 (dos) a�os anteriores a la fecha de apertura de ofertas. Tener presente que cada declaraci�n jurada deber� venir acompa�ada de un timbre profesional, seg�n lo establecido en el numeral 3.4 del Pliego de Condiciones Generales.",
+            "required": true,
+            "static": false,
+            "variables": [
+                {
+                    "name": "anexo_6",
+                    "type": "string",
+                    "description": "Referencia al anexo 6.",
+                    "required": true,
+                    "default": "Anexo 6"
+                },
+                {
+                    "name": "anexo_7",
+                    "type": "string",
+                    "description": "Referencia al anexo 7.",
+                    "required": true,
+                    "default": "Anexo 7"
+                }
+            ]
         }
-
-        function updateScore() {
-            scoreEl.textContent = `Puntuación: ${score} de ${currentQuestion + 1}`;
-        }
-
-        nextBtn.addEventListener('click', nextQuestion);
-
-        loadQuestion();
-        updateScore();
-    </script>
-</body>
-</html>
+    ]
+}
