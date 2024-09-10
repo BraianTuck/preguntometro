@@ -25,11 +25,34 @@
             opacity: 0.5;
             cursor: not-allowed;
         }
+        .search-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        .search-container input {
+            width: 4rem;
+            padding: 0.25rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 0.25rem 0 0 0.25rem;
+        }
+        .search-container button {
+            padding: 0.25rem 0.5rem;
+            background-color: #3b82f6;
+            color: white;
+            border-radius: 0 0.25rem 0.25rem 0;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body class="bg-gradient-to-r from-blue-500 to-purple-600 min-h-screen flex items-center justify-center p-4">
     <div class="bg-white p-8 rounded-xl shadow-2xl w-full max-w-2xl">
         <h1 class="text-3xl font-bold mb-6 text-center text-blue-600">Quiz BROU 2024</h1>
+        <div class="search-container">
+            <input type="number" id="search-input" min="1" max="1000" placeholder="Nº">
+            <button id="search-btn" type="button" onclick="searchQuestion()">Buscar</button>
+        </div>
         <div id="question-container" class="mb-6">
             <p id="question" class="text-xl font-semibold mb-4"></p>
             <div id="options" class="space-y-3"></div>
@@ -400,7 +423,7 @@
               "50% del costo",
               "75% del costo",
               "100% del costo",
-              "No hay límite establecido"
+              "No hay monto máximo"
             ],
             "respuesta_correcta": "100% del costo"
           },
@@ -1966,6 +1989,7 @@
         const nextBtn = document.getElementById('next-btn');
         const restartBtn = document.getElementById('restart-btn');
         const scoreEl = document.getElementById('score');
+        const searchInput = document.getElementById('search-input');
 
         function loadQuestion() {
             const question = quizData[currentQuestion];
@@ -1982,6 +2006,18 @@
             feedbackEl.classList.add('hidden');
             nextBtn.classList.add('hidden');
             nextBtn.disabled = true;  // Deshabilitar el botón hasta que se seleccione una opción
+        }
+
+        function searchQuestion() {
+            const searchValue = parseInt(searchInput.value);
+            if (searchValue >= 1 && searchValue <= quizData.length) {
+                currentQuestion = searchValue - 1;
+                loadQuestion();
+                searchInput.value = '';
+            } else {
+                alert(`Por favor, ingrese un número entre 1 y ${quizData.length}`);
+            }
+            updateScore();
         }
 
         function selectOption(index) {
@@ -2019,6 +2055,7 @@
                     endQuiz();
                 }
             }
+            updateScore();
         }
 
         function endQuiz() {
@@ -2033,13 +2070,15 @@
         function restartQuiz() {
             currentQuestion = 0;
             score = 0;
+            optionSelected = false;  // Reiniciar la variable optionSelected
             loadQuestion();
             updateScore();
             restartBtn.classList.add('hidden');
+            feedbackEl.classList.add('hidden');  // Ocultar el feedback al reiniciar
         }
 
         function updateScore() {
-            scoreEl.textContent = `Puntuación: ${score} de ${currentQuestion + 1}`;
+            scoreEl.textContent = `Puntuación: ${score} / Pregunta: ${currentQuestion + 1} de ${quizData.length}`;
         }
 
         nextBtn.addEventListener('click', nextQuestion);
